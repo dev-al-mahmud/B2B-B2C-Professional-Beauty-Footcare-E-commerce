@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BAEHR® — Professional Beauty Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red-core:    #C8102E;
+    --red-deep:    #A00C24;
+    --red-light:   #F5E6E9;
+    --neutral-00:  #FFFFFF;
+    --neutral-02:  #F7F6F4;
+    --neutral-05:  #EFEDE9;
+    --neutral-10:  #E2DED8;
+    --neutral-30:  #B3ADA5;
+    --neutral-60:  #6B6560;
+    --neutral-80:  #312E2C;
+    --neutral-100: #0E0D0C;
+    --success:     #1D7A4F;
+    --warning:     #C47B00;
+    --font-display:'Bebas Neue', sans-serif;
+    --font-body:   'DM Sans', sans-serif;
+    --font-mono:   'DM Mono', monospace;
+    --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
+    --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px; --sp-16:64px;
+    --sp-20:80px; --sp-24:96px;
+    --r-sm:2px; --r-md:6px; --r-lg:12px; --r-xl:20px; --r-full:999px;
+    --shadow-xs:0 1px 3px rgba(14,13,12,.08);
+    --shadow-sm:0 2px 8px rgba(14,13,12,.10);
+    --shadow-md:0 6px 24px rgba(14,13,12,.12);
+    --shadow-lg:0 16px 48px rgba(14,13,12,.14);
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+
+  html { font-size:16px; scroll-behavior:smooth; }
+  body { font-family:var(--font-body); background:var(--neutral-00); color:var(--neutral-100); -webkit-font-smoothing:antialiased; }
+
+  /* ── HIDDEN PAGES ── */
+  .page { display:none; }
+  .page.active { display:block; }
+
+  /* ── NAV ── */
+  .nav {
+    position:sticky; top:0; z-index:200;
+    background:var(--neutral-00);
+    border-bottom:1px solid var(--neutral-10);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 40px; height:64px;
+  }
+  .nav-logo { font-family:var(--font-display); font-size:30px; letter-spacing:3px; color:var(--neutral-100); }
+  .nav-logo span { color:var(--red-core); }
+  .nav-links { display:flex; gap:32px; }
+  .nav-links a { font-size:13px; font-weight:500; letter-spacing:.05em; color:var(--neutral-60); text-transform:uppercase; cursor:pointer; transition:color .15s; text-decoration:none; }
+  .nav-links a:hover { color:var(--neutral-100); }
+  .nav-cart { position:relative; background:var(--neutral-100); color:#fff; border:none; padding:10px 22px; border-radius:var(--r-md); font-family:var(--font-body); font-size:13px; font-weight:500; cursor:pointer; letter-spacing:.03em; transition:background .2s var(--ease); }
+  .nav-cart:hover { background:var(--red-core); }
+  .cart-badge { position:absolute; top:-6px; right:-6px; background:var(--red-core); color:#fff; border-radius:50%; width:18px; height:18px; font-size:10px; display:flex; align-items:center; justify-content:center; font-weight:700; }
+
+  /* ── TABS ── */
+  .tabs { display:flex; gap:2px; padding:10px 40px; background:var(--neutral-05); border-bottom:1px solid var(--neutral-10); overflow-x:auto; }
+  .tab { padding:8px 18px; border-radius:var(--r-md); font-size:12px; font-weight:500; letter-spacing:.05em; text-transform:uppercase; cursor:pointer; background:transparent; border:none; color:var(--neutral-60); white-space:nowrap; font-family:var(--font-body); transition:all .15s; }
+  .tab:hover { background:var(--neutral-10); color:var(--neutral-100); }
+  .tab.active { background:var(--neutral-100); color:#fff; }
+
+  /* ── BUTTONS ── */
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; cursor:pointer; font-family:var(--font-body); font-weight:500; letter-spacing:.03em; transition:all .25s var(--ease); text-decoration:none; border-radius:var(--r-md); }
+  .btn-primary { background:var(--neutral-100); color:#fff; padding:14px 28px; font-size:14px; }
+  .btn-primary:hover { background:var(--red-core); transform:translateY(-1px); box-shadow:var(--shadow-md); }
+  .btn-red { background:var(--red-core); color:#fff; padding:14px 28px; font-size:14px; }
+  .btn-red:hover { background:var(--red-deep); transform:translateY(-1px); box-shadow:var(--shadow-md); }
+  .btn-secondary { background:transparent; color:var(--neutral-100); padding:13px 27px; font-size:14px; border:1.5px solid var(--neutral-100); }
+  .btn-secondary:hover { background:var(--neutral-05); }
+  .btn-ghost { background:transparent; color:var(--red-core); padding:12px 20px; font-size:14px; }
+  .btn-ghost:hover { background:var(--red-light); }
+  .btn-sm { padding:8px 16px !important; font-size:12px !important; border-radius:var(--r-sm) !important; }
+  .btn-lg { padding:18px 40px !important; font-size:16px !important; border-radius:var(--r-lg) !important; }
+  .btn-white { background:#fff; color:var(--neutral-100); padding:16px 36px; font-size:15px; font-weight:600; border-radius:var(--r-lg); }
+  .btn-white:hover { background:var(--neutral-05); transform:translateY(-1px); box-shadow:var(--shadow-md); }
+
+  /* ── SECTION HEADER ── */
+  .section-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:32px; }
+  .section-title { font-family:var(--font-display); font-size:44px; letter-spacing:.5px; color:var(--neutral-100); line-height:1; }
+  .section-link { font-size:13px; font-weight:500; color:var(--red-core); cursor:pointer; letter-spacing:.04em; }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     HOMEPAGE
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  /* Hero */
+  .hero { display:grid; grid-template-columns:1fr 1fr; min-height:88vh; position:relative; overflow:hidden; }
+  .hero-content { display:flex; flex-direction:column; justify-content:center; padding:80px 56px 80px 56px; }
+  .hero-eyebrow { font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--red-core); margin-bottom:20px; display:flex; align-items:center; gap:12px; }
+  .hero-eyebrow::before { content:''; width:32px; height:1px; background:var(--red-core); }
+  .hero-headline { font-family:var(--font-display); font-size:clamp(72px,8vw,120px); line-height:.92; letter-spacing:1px; color:var(--neutral-100); margin-bottom:32px; }
+  .hero-headline em { color:var(--red-core); font-style:normal; }
+  .hero-desc { font-size:17px; line-height:1.65; color:var(--neutral-60); max-width:440px; margin-bottom:40px; font-weight:300; }
+  .hero-ctas { display:flex; gap:16px; align-items:center; }
+  .hero-stats { display:flex; gap:48px; margin-top:64px; padding-top:32px; border-top:1px solid var(--neutral-10); }
+  .stat-num { font-family:var(--font-display); font-size:40px; color:var(--neutral-100); line-height:1; }
+  .stat-lbl { font-size:12px; color:var(--neutral-30); margin-top:4px; letter-spacing:.04em; }
+  .hero-visual { background:var(--neutral-05); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .hero-bg-text { position:absolute; font-family:var(--font-display); font-size:240px; color:var(--neutral-10); letter-spacing:-4px; line-height:1; user-select:none; white-space:nowrap; transform:rotate(-5deg); }
+  .hero-card { position:relative; z-index:2; background:#fff; border-radius:var(--r-xl); padding:32px; width:280px; box-shadow:var(--shadow-lg); }
+  .hero-card-img { width:100%; height:200px; background:linear-gradient(135deg,var(--neutral-05),var(--red-light)); border-radius:var(--r-lg); margin-bottom:24px; display:flex; align-items:center; justify-content:center; font-size:72px; }
+  .hero-card-cat { font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--red-core); margin-bottom:6px; }
+  .hero-card-name { font-size:15px; font-weight:500; color:var(--neutral-100); margin-bottom:16px; }
+  .hero-card-row { display:flex; align-items:center; justify-content:space-between; }
+  .hero-card-price { font-size:20px; font-weight:700; }
+
+  /* Trust strip */
+  .trust-strip { display:flex; justify-content:center; gap:56px; padding:40px 40px; border-top:1px solid var(--neutral-10); border-bottom:1px solid var(--neutral-10); }
+  .trust-item { display:flex; align-items:center; gap:10px; }
+  .trust-icon { font-size:20px; }
+  .trust-text { font-size:13px; font-weight:500; color:var(--neutral-80); }
+
+  /* Categories */
+  .cat-section { padding:64px 40px; }
+  .cat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .cat-block { background:var(--neutral-05); border-radius:var(--r-lg); padding:32px 24px; cursor:pointer; transition:all .25s var(--ease); text-align:center; border:1px solid transparent; }
+  .cat-block:hover { background:var(--neutral-100); }
+  .cat-block:hover .cat-name { color:#fff; }
+  .cat-block:hover .cat-count { color:var(--neutral-30); }
+  .cat-block .cat-icon { font-size:36px; margin-bottom:16px; display:block; }
+  .cat-name { font-size:14px; font-weight:500; color:var(--neutral-100); margin-bottom:4px; transition:color .2s; }
+  .cat-count { font-family:var(--font-mono); font-size:10px; color:var(--neutral-30); letter-spacing:.06em; transition:color .2s; }
+
+  /* Products */
+  .products-section { padding:0 40px 80px; }
+  .products-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+  .product-card { cursor:pointer; }
+  .product-img-wrap { background:var(--neutral-05); border-radius:var(--r-lg); height:240px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden; position:relative; transition:transform .4s var(--ease); }
+  .product-card:hover .product-img-wrap { transform:scale(1.02); }
+  .product-badge { position:absolute; top:12px; left:12px; background:var(--red-core); color:#fff; font-size:9px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:4px 8px; border-radius:var(--r-sm); }
+  .product-emoji { font-size:60px; }
+  .product-brand { font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; color:var(--red-core); text-transform:uppercase; margin-bottom:4px; }
+  .product-name { font-size:14px; font-weight:500; color:var(--neutral-100); margin-bottom:8px; line-height:1.3; }
+  .product-price-row { display:flex; align-items:center; gap:10px; }
+  .product-price { font-size:17px; font-weight:700; }
+  .product-price-orig { font-size:13px; color:var(--neutral-30); text-decoration:line-through; }
+
+  /* Promo */
+  .promo-banner { margin:0 40px 80px; background:var(--neutral-100); border-radius:var(--r-xl); padding:56px 56px; display:flex; align-items:center; justify-content:space-between; position:relative; overflow:hidden; }
+  .promo-bg { position:absolute; right:0; top:0; bottom:0; width:50%; background:var(--red-core); clip-path:polygon(15% 0%,100% 0%,100% 100%,0% 100%); }
+  .promo-content { position:relative; z-index:2; }
+  .promo-tag { font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; color:var(--neutral-30); text-transform:uppercase; margin-bottom:12px; }
+  .promo-title { font-family:var(--font-display); font-size:60px; color:#fff; line-height:.95; margin-bottom:24px; }
+  .promo-sub { color:var(--neutral-30); font-size:14px; margin-bottom:28px; }
+  .promo-cta { position:relative; z-index:2; }
+
+  /* Editorial */
+  .editorial { padding:0 40px 96px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+  .editorial-visual { background:var(--neutral-05); border-radius:var(--r-xl); height:480px; display:flex; align-items:center; justify-content:center; font-size:100px; }
+  .editorial-content { padding:24px; }
+  .editorial-tag { font-family:var(--font-mono); font-size:10px; color:var(--red-core); letter-spacing:.14em; text-transform:uppercase; margin-bottom:20px; }
+  .editorial-title { font-family:var(--font-display); font-size:52px; color:var(--neutral-100); line-height:.97; margin-bottom:24px; }
+  .editorial-body { font-size:15px; line-height:1.7; color:var(--neutral-60); margin-bottom:28px; font-weight:300; }
+  .editorial-quote { border-left:3px solid var(--red-core); padding-left:24px; margin:32px 0; font-size:17px; font-weight:300; font-style:italic; color:var(--neutral-80); line-height:1.5; }
+
+  /* Footer */
+  .footer { background:var(--neutral-100); color:#fff; padding:72px 40px 32px; }
+  .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px; margin-bottom:64px; }
+  .footer-logo { font-family:var(--font-display); font-size:38px; letter-spacing:2px; margin-bottom:16px; }
+  .footer-logo span { color:var(--red-core); }
+  .footer-desc { font-size:13px; line-height:1.65; color:var(--neutral-30); max-width:280px; }
+  .footer-col-title { font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--neutral-30); margin-bottom:20px; }
+  .footer-links { display:flex; flex-direction:column; gap:12px; }
+  .footer-links a { font-size:13px; color:var(--neutral-60); cursor:pointer; transition:color .15s; text-decoration:none; }
+  .footer-links a:hover { color:#fff; }
+  .footer-bottom { border-top:1px solid #1f1e1d; padding-top:24px; display:flex; justify-content:space-between; align-items:center; }
+  .footer-copy { font-family:var(--font-mono); font-size:11px; color:var(--neutral-60); }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     CART
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .cart-wrap { max-width:1200px; margin:0 auto; padding:56px 40px; }
+  .cart-page-title { font-family:var(--font-display); font-size:56px; margin-bottom:40px; }
+  .cart-layout { display:grid; grid-template-columns:1fr 380px; gap:48px; }
+  .cart-items { display:flex; flex-direction:column; gap:16px; }
+  .cart-item { display:grid; grid-template-columns:100px 1fr auto; gap:24px; padding:24px; background:#fff; border:1px solid var(--neutral-10); border-radius:var(--r-lg); align-items:center; transition:box-shadow .2s; }
+  .cart-item:hover { box-shadow:var(--shadow-sm); }
+  .cart-item-img { background:var(--neutral-05); border-radius:var(--r-md); height:100px; display:flex; align-items:center; justify-content:center; font-size:44px; }
+  .cart-item-brand { font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; color:var(--red-core); text-transform:uppercase; margin-bottom:4px; }
+  .cart-item-name { font-size:15px; font-weight:500; color:var(--neutral-100); margin-bottom:4px; }
+  .cart-item-variant { font-size:12px; color:var(--neutral-30); margin-bottom:12px; }
+  .cart-item-actions { display:flex; align-items:center; gap:16px; }
+  .qty-ctrl { display:flex; align-items:center; border:1.5px solid var(--neutral-10); border-radius:var(--r-md); overflow:hidden; }
+  .qty-btn { background:none; border:none; width:34px; height:34px; cursor:pointer; font-size:18px; color:var(--neutral-60); display:flex; align-items:center; justify-content:center; transition:background .1s; }
+  .qty-btn:hover { background:var(--neutral-05); }
+  .qty-val { font-size:14px; font-weight:500; min-width:34px; text-align:center; }
+  .remove-btn { font-size:12px; color:var(--neutral-30); cursor:pointer; background:none; border:none; font-family:var(--font-body); transition:color .15s; }
+  .remove-btn:hover { color:var(--red-core); }
+  .cart-item-price { text-align:right; font-size:19px; font-weight:700; white-space:nowrap; }
+
+  /* Cross-sell */
+  .crosssell-wrap { margin-top:36px; padding-top:36px; border-top:1px solid var(--neutral-10); }
+  .crosssell-title { font-size:12px; font-weight:600; color:var(--neutral-60); letter-spacing:.06em; text-transform:uppercase; margin-bottom:20px; }
+  .crosssell-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .crosssell-item { border:1px solid var(--neutral-10); border-radius:var(--r-md); padding:16px; cursor:pointer; transition:border-color .15s; }
+  .crosssell-item:hover { border-color:var(--neutral-100); }
+  .crosssell-img { background:var(--neutral-05); border-radius:var(--r-sm); height:64px; display:flex; align-items:center; justify-content:center; font-size:30px; margin-bottom:12px; }
+  .crosssell-name { font-size:12px; font-weight:500; color:var(--neutral-100); margin-bottom:2px; }
+  .crosssell-price { font-size:12px; color:var(--neutral-60); }
+  .crosssell-add { font-size:11px; color:var(--red-core); font-weight:500; margin-top:8px; }
+
+  /* Summary */
+  .cart-summary { position:sticky; top:80px; align-self:flex-start; }
+  .summary-box { background:var(--neutral-05); border-radius:var(--r-xl); padding:32px; }
+  .summary-title { font-family:var(--font-display); font-size:26px; margin-bottom:24px; }
+  .coupon-row { display:flex; gap:12px; margin-bottom:24px; }
+  .coupon-input { flex:1; padding:10px 14px; border:1.5px solid var(--neutral-10); border-radius:var(--r-md); font-family:var(--font-body); font-size:13px; outline:none; background:#fff; transition:border-color .15s; }
+  .coupon-input:focus { border-color:var(--neutral-100); }
+  .coupon-btn { padding:10px 18px; background:var(--neutral-100); color:#fff; border:none; border-radius:var(--r-md); font-size:13px; cursor:pointer; font-family:var(--font-body); font-weight:500; transition:background .2s; }
+  .coupon-btn:hover { background:var(--red-core); }
+  .summary-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .summary-row-lbl { font-size:14px; color:var(--neutral-60); }
+  .summary-row-val { font-size:14px; font-weight:500; }
+  .summary-divider { height:1px; background:var(--neutral-10); margin:20px 0; }
+  .summary-total-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .summary-total-lbl { font-size:16px; font-weight:700; }
+  .summary-total-val { font-size:26px; font-weight:700; }
+  .shipping-note { font-family:var(--font-mono); font-size:11px; color:var(--neutral-30); letter-spacing:.04em; margin-bottom:20px; }
+  .shipping-input { width:100%; padding:10px 14px; border:1.5px solid var(--neutral-10); border-radius:var(--r-md); font-family:var(--font-body); font-size:13px; outline:none; margin-bottom:20px; background:#fff; }
+  .shipping-input:focus { border-color:var(--neutral-100); }
+  .checkout-btn-full { width:100%; padding:17px; background:var(--neutral-100); color:#fff; border:none; border-radius:var(--r-md); font-family:var(--font-body); font-size:15px; font-weight:600; cursor:pointer; letter-spacing:.02em; transition:all .25s var(--ease); margin-bottom:16px; }
+  .checkout-btn-full:hover { background:var(--red-core); transform:translateY(-1px); box-shadow:var(--shadow-md); }
+  .trust-badges-row { display:flex; gap:14px; justify-content:center; padding-top:20px; border-top:1px solid var(--neutral-10); }
+  .trust-badge { display:flex; align-items:center; gap:4px; font-size:11px; color:var(--neutral-60); }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     ORDER CONFIRMATION
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .confirm-wrap { max-width:720px; margin:0 auto; padding:80px 40px; }
+  .confirm-top { text-align:center; margin-bottom:64px; }
+  .confirm-check { width:72px; height:72px; background:#E8F5EE; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; margin:0 auto 24px; }
+  .confirm-title { font-family:var(--font-display); font-size:64px; color:var(--neutral-100); margin-bottom:16px; line-height:1; }
+  .confirm-sub { font-size:16px; color:var(--neutral-60); line-height:1.65; font-weight:300; max-width:520px; margin:0 auto 20px; }
+  .order-num-pill { display:inline-flex; align-items:center; gap:12px; background:var(--neutral-05); border-radius:var(--r-full); padding:8px 20px; font-family:var(--font-mono); font-size:13px; color:var(--neutral-60); }
+  .confirm-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; }
+  .confirm-box { background:var(--neutral-05); border-radius:var(--r-lg); padding:24px; }
+  .confirm-box-title { font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--neutral-30); margin-bottom:16px; }
+  .confirm-box-body { font-size:14px; color:var(--neutral-80); line-height:1.7; }
+  .order-items-box { background:var(--neutral-05); border-radius:var(--r-lg); padding:24px; margin-bottom:32px; }
+  .order-items-title { font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--neutral-30); padding-bottom:16px; border-bottom:1px solid var(--neutral-10); margin-bottom:4px; }
+  .order-item { display:flex; align-items:center; gap:20px; padding:16px 0; border-bottom:1px solid var(--neutral-10); }
+  .order-item:last-of-type { border-bottom:none; }
+  .order-item-img { width:60px; height:60px; background:#fff; border-radius:var(--r-md); display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0; }
+  .order-item-info { flex:1; }
+  .order-item-name { font-size:14px; font-weight:500; color:var(--neutral-100); }
+  .order-item-variant { font-size:12px; color:var(--neutral-30); }
+  .order-item-price { font-size:16px; font-weight:700; }
+  .order-total-row { display:flex; justify-content:space-between; padding-top:16px; border-top:1px solid var(--neutral-10); margin-top:4px; }
+  .order-total-lbl { font-size:14px; font-weight:700; }
+  .order-total-val { font-size:22px; font-weight:700; }
+  .next-steps-title { font-family:var(--font-display); font-size:34px; margin-bottom:24px; }
+  .steps { display:flex; flex-direction:column; gap:16px; margin-bottom:40px; }
+  .step { display:flex; gap:20px; align-items:flex-start; padding:20px; border:1px solid var(--neutral-10); border-radius:var(--r-lg); }
+  .step-num { width:34px; height:34px; border-radius:50%; background:var(--neutral-100); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
+  .step-text strong { font-size:14px; font-weight:600; display:block; margin-bottom:4px; }
+  .step-text span { font-size:13px; color:var(--neutral-60); }
+  .account-promo { background:linear-gradient(135deg,var(--neutral-100),#2a2725); border-radius:var(--r-xl); padding:32px; margin-bottom:40px; display:flex; justify-content:space-between; align-items:center; gap:24px; }
+  .account-promo-text strong { font-size:16px; color:#fff; display:block; margin-bottom:8px; }
+  .account-promo-text p { font-size:13px; color:var(--neutral-30); }
+  .support-bottom { text-align:center; padding:32px; border-top:1px solid var(--neutral-10); }
+  .support-bottom p { font-size:14px; color:var(--neutral-60); margin-bottom:16px; }
+  .support-links { display:flex; justify-content:center; gap:28px; }
+  .support-link { font-size:13px; color:var(--red-core); cursor:pointer; font-weight:500; }
+  .recommended-section { margin-top:64px; }
+  .recommended-title { font-family:var(--font-display); font-size:38px; margin-bottom:32px; }
+  .recommended-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     CONTENT PAGE
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .content-layout { display:grid; grid-template-columns:220px 1fr; max-width:1100px; margin:0 auto; padding:56px 40px; gap:64px; }
+  .sidebar { position:sticky; top:80px; align-self:flex-start; }
+  .sidebar-nav-title { font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--neutral-30); margin-bottom:20px; }
+  .sidebar-nav-item { display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:var(--r-md); font-size:13px; color:var(--neutral-60); cursor:pointer; transition:all .15s; margin-bottom:2px; }
+  .sidebar-nav-item:hover { background:var(--neutral-05); color:var(--neutral-100); }
+  .sidebar-nav-item.active { background:var(--neutral-05); color:var(--neutral-100); font-weight:500; }
+  .sidebar-nav-item.active::before { content:''; width:3px; height:14px; background:var(--red-core); border-radius:2px; flex-shrink:0; }
+  .content-eyebrow { font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--red-core); margin-bottom:16px; }
+  .content-hero-title { font-family:var(--font-display); font-size:72px; color:var(--neutral-100); line-height:.95; margin-bottom:24px; }
+  .content-lead { font-size:20px; line-height:1.65; color:var(--neutral-60); margin-bottom:48px; font-weight:300; border-bottom:1px solid var(--neutral-10); padding-bottom:48px; }
+  .content-img-block { border-radius:var(--r-xl); height:360px; background:var(--neutral-05); display:flex; align-items:center; justify-content:center; font-size:100px; margin-bottom:40px; }
+  .content-h2 { font-family:var(--font-display); font-size:42px; color:var(--neutral-100); margin-bottom:20px; line-height:1; margin-top:56px; }
+  .content-body { font-size:16px; line-height:1.8; color:var(--neutral-60); margin-bottom:24px; font-weight:300; }
+  .content-quote { background:var(--neutral-05); border-left:4px solid var(--red-core); border-radius:0 var(--r-lg) var(--r-lg) 0; padding:32px 36px; margin:48px 0; }
+  .content-quote blockquote { font-size:22px; font-style:italic; font-weight:300; color:var(--neutral-80); line-height:1.5; margin-bottom:12px; }
+  .content-quote cite { font-family:var(--font-mono); font-size:11px; color:var(--neutral-30); letter-spacing:.06em; }
+  .content-highlight { background:var(--red-light); border-radius:var(--r-lg); padding:24px 32px; margin:32px 0; }
+  .content-highlight p { font-size:15px; color:var(--neutral-80); line-height:1.65; }
+  .content-two-col { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin:40px 0; align-items:center; }
+  .content-two-col-img { background:var(--neutral-05); border-radius:var(--r-lg); height:260px; display:flex; align-items:center; justify-content:center; font-size:72px; }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     STYLE GUIDE
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .sg-wrap { padding:64px 40px; max-width:1200px; margin:0 auto; }
+  .sg-intro { margin-bottom:64px; }
+  .sg-intro .eyebrow { font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--red-core); margin-bottom:12px; }
+  .sg-intro h1 { font-family:var(--font-display); font-size:56px; color:var(--neutral-100); margin-bottom:8px; }
+  .sg-intro p { font-size:15px; color:var(--neutral-60); }
+  .sg-section { margin-bottom:72px; }
+  .sg-label { font-family:var(--font-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--neutral-30); margin-bottom:24px; display:flex; align-items:center; gap:12px; }
+  .sg-label::after { content:''; flex:1; height:1px; background:var(--neutral-10); }
+  /* Colors */
+  .color-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:16px; }
+  .swatch { border-radius:var(--r-md); overflow:hidden; box-shadow:var(--shadow-xs); }
+  .swatch-block { height:72px; }
+  .swatch-info { padding:12px 14px; background:#fff; }
+  .swatch-hex { font-family:var(--font-mono); font-size:11px; font-weight:500; color:var(--neutral-100); }
+  .swatch-name { font-family:var(--font-mono); font-size:10px; color:var(--neutral-60); margin-top:2px; }
+  .swatch-usage { font-family:var(--font-mono); font-size:9px; color:var(--neutral-30); margin-top:2px; }
+  /* Type scale */
+  .type-scale { display:flex; flex-direction:column; gap:0; }
+  .type-row { display:flex; align-items:baseline; gap:32px; padding:24px 0; border-bottom:1px solid var(--neutral-05); }
+  .type-meta { min-width:160px; flex-shrink:0; }
+  .type-meta .t-tag { font-size:11px; font-weight:600; color:var(--neutral-60); margin-bottom:4px; }
+  .type-meta .t-spec { font-family:var(--font-mono); font-size:9px; color:var(--neutral-30); line-height:1.6; }
+  /* Buttons guide */
+  .btn-showcase { display:flex; flex-direction:column; gap:24px; }
+  .btn-row { display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+  .btn-row-label { font-family:var(--font-mono); font-size:9px; color:var(--neutral-30); letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px; }
+  /* Inputs guide */
+  .input-grid { display:flex; flex-direction:column; gap:20px; max-width:380px; }
+  .inp-grp { display:flex; flex-direction:column; gap:6px; }
+  .inp-label { font-size:11px; font-weight:600; color:var(--neutral-60); letter-spacing:.05em; text-transform:uppercase; }
+  .inp { width:100%; padding:12px 16px; border:1.5px solid var(--neutral-10); border-radius:var(--r-md); font-family:var(--font-body); font-size:14px; color:var(--neutral-100); background:#fff; outline:none; transition:border-color .15s; }
+  .inp:focus { border-color:var(--neutral-100); }
+  .inp.err { border-color:var(--red-core); }
+  .inp.ok { border-color:var(--success); }
+  .inp-hint { font-size:11px; color:var(--neutral-30); }
+  .inp-err { font-size:11px; color:var(--red-core); }
+  .inp-ok { font-size:11px; color:var(--success); }
+  /* Cards guide */
+  .card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:24px; }
+  .card { background:#fff; border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow-sm); transition:all .25s var(--ease); cursor:pointer; }
+  .card:hover { box-shadow:var(--shadow-md); transform:translateY(-3px); }
+  .card-img { height:180px; background:var(--neutral-05); display:flex; align-items:center; justify-content:center; font-size:56px; }
+  .card-body { padding:20px; }
+  .card-cat { font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--red-core); margin-bottom:8px; }
+  .card-name { font-size:14px; font-weight:500; color:var(--neutral-100); margin-bottom:10px; line-height:1.35; }
+  .card-price { font-size:17px; font-weight:700; }
+  /* Spacing guide */
+  .spacing-guide { display:flex; flex-direction:column; gap:12px; }
+  .spacing-row { display:flex; align-items:center; gap:24px; }
+  .spacing-bar { background:var(--red-core); border-radius:2px; height:20px; }
+  .spacing-lbl { font-family:var(--font-mono); font-size:11px; color:var(--neutral-60); min-width:120px; }
+  /* Shadows guide */
+  .shadows-row { display:flex; gap:40px; flex-wrap:wrap; }
+  .shadow-demo { display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .shadow-box { width:110px; height:72px; background:#fff; border-radius:var(--r-md); }
+  .shadow-lbl { font-family:var(--font-mono); font-size:10px; color:var(--neutral-30); }
+  /* Radius guide */
+  .radius-row { display:flex; gap:24px; flex-wrap:wrap; align-items:flex-end; }
+  .radius-demo { display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .radius-box { background:var(--neutral-10); }
+  .radius-lbl { font-family:var(--font-mono); font-size:9px; color:var(--neutral-30); text-align:center; }
+  /* Breakpoints */
+  .bp-grid { display:flex; flex-direction:column; gap:16px; }
+  .bp-row { display:flex; align-items:center; gap:24px; }
+  .bp-info { font-family:var(--font-mono); font-size:11px; color:var(--neutral-60); min-width:220px; }
+  .bp-info strong { font-size:12px; color:var(--neutral-100); display:block; margin-bottom:2px; }
+  .bp-track { flex:1; height:8px; background:var(--neutral-10); border-radius:4px; overflow:hidden; }
+  .bp-fill { height:100%; background:var(--neutral-100); border-radius:4px; }
+  /* States */
+  .states-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .state-card { padding:20px; border:1px solid var(--neutral-10); border-radius:var(--r-lg); }
+  .state-dot { width:10px; height:10px; border-radius:50%; margin-bottom:12px; }
+  .state-name { font-size:13px; font-weight:600; margin-bottom:6px; }
+  .state-desc { font-size:12px; color:var(--neutral-60); line-height:1.55; }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <div class="nav-logo">BAEHR<span>®</span></div>
+  <div class="nav-links">
+    <a>Products</a>
+    <a>Professional</a>
+    <a>Education</a>
+    <a>About</a>
+    <a>Support</a>
+  </div>
+  <button class="nav-cart btn" onclick="showPage('cart')">
+    Cart <span class="cart-badge">3</span>
+  </button>
+</nav>
+
+<!-- ══ TABS ══ -->
+<div class="tabs">
+  <button class="tab active" onclick="showPage('home',this)">Homepage</button>
+  <button class="tab" onclick="showPage('cart',this)">Cart</button>
+  <button class="tab" onclick="showPage('confirm',this)">Order Confirmation</button>
+  <button class="tab" onclick="showPage('content',this)">Content Page</button>
+  <button class="tab" onclick="showPage('styleguide',this)">Style Guide</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: HOMEPAGE
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Professional Beauty Tools</div>
+      <h1 class="hero-headline">PRECI<br>SION<br><em>CRAFT</em></h1>
+      <p class="hero-desc">European engineering meets professional nail care. Trusted by over 50,000 beauty professionals across 30 countries.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-red btn-lg" onclick="showPage('cart')">Shop Now</button>
+        <button class="btn btn-secondary btn-lg">Explore Range</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">50K+</div><div class="stat-lbl">Professionals</div></div>
+        <div><div class="stat-num">30</div><div class="stat-lbl">Countries</div></div>
+        <div><div class="stat-num">25yr</div><div class="stat-lbl">Excellence</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-bg-text">BAEHR</div>
+      <div class="hero-card">
+        <div class="hero-card-img">💅</div>
+        <div class="hero-card-cat">Bestseller</div>
+        <div class="hero-card-name">XPro Nail Drill System</div>
+        <div class="hero-card-row">
+          <span class="hero-card-price">€289</span>
+          <button class="btn btn-primary btn-sm" onclick="showPage('cart')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <div class="trust-strip">
+    <div class="trust-item"><span class="trust-icon">🇩🇪</span><span class="trust-text">Made in Europe</span></div>
+    <div class="trust-item"><span class="trust-icon">⚡</span><span class="trust-text">Fast Shipping</span></div>
+    <div class="trust-item"><span class="trust-icon">🔒</span><span class="trust-text">Secure Payment</span></div>
+    <div class="trust-item"><span class="trust-icon">↩️</span><span class="trust-text">30-Day Returns</span></div>
+    <div class="trust-item"><span class="trust-icon">🏆</span><span class="trust-text">ISO Certified</span></div>
+  </div>
+
+  <!-- Categories -->
+  <div class="cat-section">
+    <div class="section-header">
+      <div class="section-title">Shop by Category</div>
+      <span class="section-link">View All →</span>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-block"><span class="cat-icon">💅</span><div class="cat-name">Nail Systems</div><div class="cat-count">142 products</div></div>
+      <div class="cat-block"><span class="cat-icon">💡</span><div class="cat-name">Curing & UV</div><div class="cat-count">38 products</div></div>
+      <div class="cat-block"><span class="cat-icon">🧴</span><div class="cat-name">Hygiene & Care</div><div class="cat-count">95 products</div></div>
+      <div class="cat-block"><span class="cat-icon">🎨</span><div class="cat-name">Colors & Gels</div><div class="cat-count">210 products</div></div>
+    </div>
+  </div>
+
+  <!-- Products -->
+  <div class="products-section">
+    <div class="section-header">
+      <div class="section-title">Bestsellers</div>
+      <span class="section-link">View All →</span>
+    </div>
+    <div class="products-grid">
+      <div class="product-card" onclick="showPage('cart')">
+        <div class="product-img-wrap"><span class="product-badge">Bestseller</span><span class="product-emoji">💅</span></div>
+        <div class="product-brand">BAEHR</div>
+        <div class="product-name">Professional Nail Drill System</div>
+        <div class="product-price-row"><span class="product-price">€289</span></div>
+      </div>
+      <div class="product-card" onclick="showPage('cart')">
+        <div class="product-img-wrap"><span class="product-badge">Sale</span><span class="product-emoji">💡</span></div>
+        <div class="product-brand">BAEHR</div>
+        <div class="product-name">LED Curing Lamp 48W</div>
+        <div class="product-price-row"><span class="product-price">€159</span><span class="product-price-orig">€199</span></div>
+      </div>
+      <div class="product-card" onclick="showPage('cart')">
+        <div class="product-img-wrap"><span class="product-emoji">🧴</span></div>
+        <div class="product-brand">BAEHR</div>
+        <div class="product-name">Hygienic Tool Disinfectant</div>
+        <div class="product-price-row"><span class="product-price">€34</span></div>
+      </div>
+      <div class="product-card" onclick="showPage('cart')">
+        <div class="product-img-wrap"><span class="product-badge">New</span><span class="product-emoji">🎨</span></div>
+        <div class="product-brand">BAEHR</div>
+        <div class="product-name">Premium Gel Polish Set</div>
+        <div class="product-price-row"><span class="product-price">€89</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Promo -->
+  <div class="promo-banner">
+    <div class="promo-bg"></div>
+    <div class="promo-content">
+      <div class="promo-tag">Limited Offer · Spring 2025</div>
+      <div class="promo-title">PRO<br>STARTER<br>KIT</div>
+      <p class="promo-sub">Complete professional setup · Save €120</p>
+    </div>
+    <div class="promo-cta">
+      <button class="btn btn-white">Get the Kit →</button>
+    </div>
+  </div>
+
+  <!-- Editorial -->
+  <div class="editorial">
+    <div class="editorial-visual">🔬</div>
+    <div class="editorial-content">
+      <div class="editorial-tag">Our Philosophy</div>
+      <h2 class="editorial-title">WHERE SCIENCE MEETS ARTISTRY</h2>
+      <p class="editorial-body">For over 25 years, BAEHR has been at the forefront of professional nail care technology. Our tools are engineered with clinical precision, tested in certified European laboratories, and trusted by professionals who demand the best.</p>
+      <div class="editorial-quote">"BAEHR represents the gold standard in professional nail care equipment. Nothing comes close."</div>
+      <p class="editorial-body">From our flagship nail drill systems to our curated gel collections, every product reflects our commitment to quality, durability, and performance.</p>
+      <button class="btn btn-primary">Discover Our Story</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">BAEHR<span>®</span></div>
+        <p class="footer-desc">Professional beauty tools engineered in Europe. Trusted by nail professionals in over 30 countries.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Products</div>
+        <div class="footer-links">
+          <a>Nail Systems</a><a>UV Lamps</a><a>Hygiene</a><a>Accessories</a><a>New Arrivals</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a>About BAEHR</a><a>Education</a><a>Press</a><a>Careers</a><a>Sustainability</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Support</div>
+        <div class="footer-links">
+          <a>FAQ</a><a>Shipping</a><a>Returns</a><a>Contact</a><a>Professional Login</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 BAEHR GmbH. All rights reserved.</span>
+      <span class="footer-copy">Designed with precision · Made in Europe</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: CART
+══════════════════════════════════════════ -->
+<div id="page-cart" class="page">
+  <div class="cart-wrap">
+    <div class="cart-page-title">Shopping Cart</div>
+    <div class="cart-layout">
+      <div>
+        <!-- Items -->
+        <div class="cart-items">
+          <div class="cart-item">
+            <div class="cart-item-img">💅</div>
+            <div>
+              <div class="cart-item-brand">BAEHR</div>
+              <div class="cart-item-name">Professional Nail Drill System XPro</div>
+              <div class="cart-item-variant">Silver / 220V EU</div>
+              <div class="cart-item-actions">
+                <div class="qty-ctrl">
+                  <button class="qty-btn" onclick="changeQty('q1',-1)">−</button>
+                  <span class="qty-val" id="q1">1</span>
+                  <button class="qty-btn" onclick="changeQty('q1',1)">+</button>
+                </div>
+                <button class="remove-btn">Remove</button>
+              </div>
+            </div>
+            <div class="cart-item-price" id="p1">€289</div>
+          </div>
+          <div class="cart-item">
+            <div class="cart-item-img">💡</div>
+            <div>
+              <div class="cart-item-brand">BAEHR</div>
+              <div class="cart-item-name">LED Curing Lamp 48W Ultra</div>
+              <div class="cart-item-variant">White / Timer Function</div>
+              <div class="cart-item-actions">
+                <div class="qty-ctrl">
+                  <button class="qty-btn" onclick="changeQty('q2',-1)">−</button>
+                  <span class="qty-val" id="q2">2</span>
+                  <button class="qty-btn" onclick="changeQty('q2',1)">+</button>
+                </div>
+                <button class="remove-btn">Remove</button>
+              </div>
+            </div>
+            <div class="cart-item-price" id="p2">€318</div>
+          </div>
+        </div>
+
+        <!-- Cross-sell -->
+        <div class="crosssell-wrap">
+          <div class="crosssell-title">Frequently Bought Together</div>
+          <div class="crosssell-grid">
+            <div class="crosssell-item">
+              <div class="crosssell-img">🌀</div>
+              <div class="crosssell-name">Nail Dust Collector</div>
+              <div class="crosssell-price">€45</div>
+              <div class="crosssell-add">+ Add to cart</div>
+            </div>
+            <div class="crosssell-item">
+              <div class="crosssell-img">🧴</div>
+              <div class="crosssell-name">Hygiene Spray 500ml</div>
+              <div class="crosssell-price">€18</div>
+              <div class="crosssell-add">+ Add to cart</div>
+            </div>
+            <div class="crosssell-item">
+              <div class="crosssell-img">🔩</div>
+              <div class="crosssell-name">Professional Bits Set</div>
+              <div class="crosssell-price">€62</div>
+              <div class="crosssell-add">+ Add to cart</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="cart-summary">
+        <div class="summary-box">
+          <div class="summary-title">Summary</div>
+          <div class="coupon-row">
+            <input class="coupon-input" placeholder="Coupon code" />
+            <button class="coupon-btn">Apply</button>
+          </div>
+          <div class="summary-row"><span class="summary-row-lbl">Subtotal</span><span class="summary-row-val" id="subtotal">€607</span></div>
+          <div class="summary-row"><span class="summary-row-lbl">Shipping</span><span class="summary-row-val" style="color:var(--success)">Free</span></div>
+          <div class="summary-row"><span class="summary-row-lbl">VAT (19%)</span><span class="summary-row-val" id="vat">€115</span></div>
+          <div class="summary-divider"></div>
+          <div class="summary-total-row"><span class="summary-total-lbl">Total</span><span class="summary-total-val" id="total">€722</span></div>
+          <div class="shipping-note">Estimated delivery: 3–5 business days</div>
+          <input class="shipping-input" placeholder="Enter postcode for exact shipping" />
+          <button class="checkout-btn-full" onclick="showPage('confirm')">Proceed to Checkout →</button>
+          <div class="trust-badges-row">
+            <div class="trust-badge">🔒 Secure</div>
+            <div class="trust-badge">↩️ 30-Day Returns</div>
+            <div class="trust-badge">🚚 Free Shipping</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: ORDER CONFIRMATION
+══════════════════════════════════════════ -->
+<div id="page-confirm" class="page">
+  <div class="confirm-wrap">
+    <div class="confirm-top">
+      <div class="confirm-check">✓</div>
+      <h1 class="confirm-title">ORDER CONFIRMED</h1>
+      <p class="confirm-sub">Thank you for your purchase. We've received your order and our team is already preparing it with care.</p>
+      <span class="order-num-pill">📦 Order #BHR-2025-048291</span>
+    </div>
+
+    <div class="confirm-grid">
+      <div class="confirm-box">
+        <div class="confirm-box-title">Delivery Address</div>
+        <div class="confirm-box-body">Maria Schmidt<br>Schönhauser Allee 47<br>10435 Berlin<br>Germany</div>
+      </div>
+      <div class="confirm-box">
+        <div class="confirm-box-title">Delivery Method</div>
+        <div class="confirm-box-body"><strong style="font-size:15px">DHL Express</strong><br>Estimated: 14–16 May 2025<br><span style="color:var(--neutral-30);font-size:12px">Tracking sent to maria@example.com</span></div>
+      </div>
+    </div>
+
+    <div class="order-items-box">
+      <div class="order-items-title">Order Summary</div>
+      <div class="order-item">
+        <div class="order-item-img">💅</div>
+        <div class="order-item-info">
+          <div class="order-item-name">Professional Nail Drill System XPro</div>
+          <div class="order-item-variant">Silver / 220V EU · Qty: 1</div>
+        </div>
+        <div class="order-item-price">€289</div>
+      </div>
+      <div class="order-item">
+        <div class="order-item-img">💡</div>
+        <div class="order-item-info">
+          <div class="order-item-name">LED Curing Lamp 48W Ultra</div>
+          <div class="order-item-variant">White / Timer Function · Qty: 2</div>
+        </div>
+        <div class="order-item-price">€318</div>
+      </div>
+      <div class="order-total-row">
+        <span class="order-total-lbl">Total (incl. VAT)</span>
+        <span class="order-total-val">€722</span>
+      </div>
+    </div>
+
+    <div class="next-steps-title">What Happens Next</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Order Processing</strong><span>Our warehouse team will pick and pack your order within 24 hours.</span></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Dispatch Notification</strong><span>You'll receive an email with your tracking number once dispatched.</span></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Delivery</strong><span>DHL Express will deliver your order within 3–5 business days.</span></div>
+      </div>
+    </div>
+
+    <div class="account-promo">
+      <div class="account-promo-text">
+        <strong>Save time on your next order</strong>
+        <p>Create a BAEHR account to track orders, save addresses, and access exclusive professional pricing.</p>
+      </div>
+      <button class="btn btn-red btn-lg">Create Account</button>
+    </div>
+
+    <!-- Recommended -->
+    <div class="recommended-section">
+      <div class="recommended-title">You May Also Like</div>
+      <div class="recommended-grid">
+        <div class="card">
+          <div class="card-img">🧴</div>
+          <div class="card-body">
+            <div class="card-cat">BAEHR</div>
+            <div class="card-name">Hygienic Tool Disinfectant</div>
+            <div class="card-price">€34</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🎨</div>
+          <div class="card-body">
+            <div class="card-cat">BAEHR</div>
+            <div class="card-name">Premium Gel Polish Set</div>
+            <div class="card-price">€89</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🌀</div>
+          <div class="card-body">
+            <div class="card-cat">BAEHR</div>
+            <div class="card-name">Nail Dust Collector Pro</div>
+            <div class="card-price">€45</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="support-bottom">
+      <p>Questions about your order? We're here to help.</p>
+      <div class="support-links">
+        <span class="support-link">📧 Contact Support</span>
+        <span class="support-link">📞 +49 89 123 4567</span>
+        <span class="support-link">💬 Live Chat</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: CONTENT
+══════════════════════════════════════════ -->
+<div id="page-content" class="page">
+  <div class="content-layout">
+    <aside class="sidebar">
+      <div class="sidebar-nav-title">In this article</div>
+      <div class="sidebar-nav-item active">Introduction</div>
+      <div class="sidebar-nav-item">The Science of Gel</div>
+      <div class="sidebar-nav-item">Professional Techniques</div>
+      <div class="sidebar-nav-item">Product Selection</div>
+      <div class="sidebar-nav-item">Safety & Hygiene</div>
+      <div class="sidebar-nav-item">FAQ</div>
+    </aside>
+    <main>
+      <div class="content-eyebrow">Professional Education · 8 min read</div>
+      <h1 class="content-hero-title">THE ART OF PROFESSIONAL GEL APPLICATION</h1>
+      <p class="content-lead">Mastering gel nail application requires understanding the chemistry, mastering the technique, and selecting the right tools. This comprehensive guide covers everything a professional needs to know.</p>
+
+      <div class="content-img-block">🔬</div>
+
+      <h2 class="content-h2">THE SCIENCE OF GEL CHEMISTRY</h2>
+      <p class="content-body">Modern gel systems use a photoinitiator-based chemistry that responds to specific wavelengths of UV or LED light. Understanding this process is fundamental to achieving consistent, long-lasting results. The curing reaction — photopolymerization — transforms the liquid monomer into a solid polymer network with remarkable durability.</p>
+      <p class="content-body">BAEHR's gel formulations are engineered to achieve an optimal balance between flexibility and hardness, ensuring that nails can withstand daily wear without lifting or cracking. Our proprietary bonding technology creates adhesion at the molecular level.</p>
+
+      <div class="content-quote">
+        <blockquote>"The difference between an amateur and a professional result isn't talent — it's understanding the materials at a molecular level."</blockquote>
+        <cite>— Dr. Elena Fischer, Head of R&D, BAEHR Laboratories</cite>
+      </div>
+
+      <div class="content-two-col">
+        <div>
+          <h2 class="content-h2" style="font-size:34px;margin-top:0">PREPARATION IS EVERYTHING</h2>
+          <p class="content-body">Proper nail preparation accounts for 70% of a successful gel application. Starting with clean, dehydrated, and properly shaped nails ensures maximum adhesion and longevity.</p>
+          <p class="content-body">Use BAEHR's professional nail primer after dehydration for optimal results on all nail types.</p>
+        </div>
+        <div class="content-two-col-img">💅</div>
+      </div>
+
+      <div class="content-highlight">
+        <p><strong>Professional Tip:</strong> Always cure each layer for the full recommended time. Under-curing is the number one cause of gel lifting and can lead to allergic sensitization over time.</p>
+      </div>
+
+      <h2 class="content-h2">SELECTING THE RIGHT TOOLS</h2>
+      <p class="content-body">Your tools are an extension of your expertise. Investing in professional-grade equipment from BAEHR ensures precision, hygiene, and consistent results across every client. Our nail drill systems offer variable torque control for different nail types and techniques.</p>
+      <p class="content-body">When selecting a nail lamp, consider wattage, wavelength coverage, and timer functionality. BAEHR's 48W LED system covers the full spectrum required for all professional gel brands.</p>
+
+      <!-- Recommended -->
+      <div class="recommended-section">
+        <div class="recommended-title">Products Referenced</div>
+        <div class="recommended-grid">
+          <div class="card">
+            <div class="card-img">💅</div>
+            <div class="card-body">
+              <div class="card-cat">BAEHR</div>
+              <div class="card-name">Professional Nail Drill System</div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="card-price">€289</div>
+                <button class="btn btn-primary btn-sm" onclick="showPage('cart')">Add →</button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-img">💡</div>
+            <div class="card-body">
+              <div class="card-cat">BAEHR</div>
+              <div class="card-name">LED Curing Lamp 48W</div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="card-price">€159</div>
+                <button class="btn btn-primary btn-sm" onclick="showPage('cart')">Add →</button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-img">🧴</div>
+            <div class="card-body">
+              <div class="card-cat">BAEHR</div>
+              <div class="card-name">Hygienic Tool Disinfectant</div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="card-price">€34</div>
+                <button class="btn btn-primary btn-sm" onclick="showPage('cart')">Add →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: STYLE GUIDE
+══════════════════════════════════════════ -->
+<div id="page-styleguide" class="page">
+  <div class="sg-wrap">
+    <div class="sg-intro">
+      <div class="eyebrow">BAEHR Design System v1.0</div>
+      <h1>STYLE GUIDE</h1>
+      <p>Developer-ready UI specifications for BAEHR website redesign. All values are tokenised CSS custom properties.</p>
+    </div>
+
+    <!-- 01 Colors -->
+    <div class="sg-section">
+      <div class="sg-label">01 · Color Palette</div>
+      <div class="color-grid">
+        <div class="swatch"><div class="swatch-block" style="background:#C8102E"></div><div class="swatch-info"><div class="swatch-hex">#C8102E</div><div class="swatch-name">Red Core</div><div class="swatch-usage">Primary CTA, Accents</div></div></div>
+        <div class="swatch"><div class="swatch-block" style="background:#A00C24"></div><div class="swatch-info"><div class="swatch-hex">#A00C24</div><div class="swatch-name">Red Deep</div><div class="swatch-usage">Hover states</div></div></div>
+        <div class="swatch"><div class="swatch-block" style="background:#F5E6E9"></div><div class="swatch-info"><div class="swatch-hex">#F5E6E9</div><div class="swatch-name">Red Light</div><div class="swatch-usage">Highlight backgrounds</div></div></div>
+        <div class="swatch"><div class="swatch-block" style="background:#0E0D0C"></div><div class="swatch-info"><div class="swatch-hex">#0E0D0C</div><div class="swatch-name">Neutral 100</div><div class="swatch-usage">Primary text, dark BG</div></div></div>
+        <div class="swatch"><div class="swatch-block" style="background:#312E2C"></div><div class="swatch-info"><div class="swatch-hex">#312E2C</div><div class="swatch-name">Neutral 80</div><div class="swatch-usage">Secondary text</div></div></div>
+        <div class="swatch"><div class="swatch-block" style="background:#6B6560"></div><div class="swatch-info"><div class="swatch-hex">#6B6560</div><div class="swatch-name">Neutral 60</div><div class="swatch-usage">Body / Caption text</div></div></div>
+        <div class="swatch"><div class="swatch-block" style="background:#B3ADA5"></div><div class="swatch-info"><div class="swatch-hex">#B3ADA5</div><div class="swatch-name">Neutral 30</div><div class="swatch-usage">Placeholder</div></div></div>
+        <div class="swatch"><div class="swatch-block" style="background:#E2DED8"></div><div class="swatch-info"><div class="swatch-hex">#E2DED8</div><div class="swatch-name">Neutral 10</div><div class="swatch-usage">Borders, dividers</div></div></div>
+        <div class="swatch"><div class="swatch-block" style="background:#EFEDE9"></div><div class="swatch-info"><div class="swatch-hex">#EFEDE9</div><div class="swatch-name">Neutral 05</div><div class="swatch-usage">Card surfaces, inputs</div></div></div>
+        <div class="swatch"><div class="swatch-block" style="background:#1D7A4F"></div><div class="swatch-info"><div class="swatch-hex">#1D7A4F</div><div class="swatch-name">Success</div><div class="swatch-usage">Validation ✓</div></div></div>
+        <div class="swatch"><div class="swatch-block" style="background:#C47B00"></div><div class="swatch-info"><div class="swatch-hex">#C47B00</div><div class="swatch-name">Warning</div><div class="swatch-usage">Alert states</div></div></div>
+      </div>
+    </div>
+
+    <!-- 02 Typography -->
+    <div class="sg-section">
+      <div class="sg-label">02 · Typography Scale</div>
+      <div class="type-scale">
+        <div class="type-row">
+          <div class="type-meta"><div class="t-tag">H1 / Display</div><div class="t-spec">Bebas Neue · 96px<br>Weight 400 · Line 0.95<br>Track 1px</div></div>
+          <div style="font-family:var(--font-display);font-size:72px;line-height:.95;letter-spacing:1px">BAEHR</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><div class="t-tag">H2</div><div class="t-spec">Bebas Neue · 56px<br>Weight 400 · Line 1.0</div></div>
+          <div style="font-family:var(--font-display);font-size:56px;line-height:1">Product Collections</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><div class="t-tag">H3</div><div class="t-spec">Bebas Neue · 42px<br>Weight 400 · Line 1.0</div></div>
+          <div style="font-family:var(--font-display);font-size:42px;line-height:1">Category Name</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><div class="t-tag">H4</div><div class="t-spec">DM Sans · 24px<br>Weight 500 · Line 1.25</div></div>
+          <div style="font-size:24px;font-weight:500;line-height:1.25">Section Heading</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><div class="t-tag">H5</div><div class="t-spec">DM Sans · 18px<br>Weight 500 · Line 1.3</div></div>
+          <div style="font-size:18px;font-weight:500;line-height:1.3">Sub-section Title</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><div class="t-tag">H6 / Label</div><div class="t-spec">DM Sans · 13px<br>Weight 600 · Track 0.05em</div></div>
+          <div style="font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">PRODUCT LABEL</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><div class="t-tag">Body Large</div><div class="t-spec">DM Sans · 17px<br>Weight 300 · Line 1.65</div></div>
+          <div style="font-size:17px;font-weight:300;line-height:1.65;max-width:500px">Clinical precision meets modern lifestyle aesthetic. Engineered for the professional.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><div class="t-tag">Body</div><div class="t-spec">DM Sans · 15px<br>Weight 400 · Line 1.65</div></div>
+          <div style="font-size:15px;line-height:1.65;max-width:500px">Our products are formulated with European precision and tested in ISO-certified laboratories.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><div class="t-tag">Body Small</div><div class="t-spec">DM Sans · 13px<br>Weight 400 · Line 1.55</div></div>
+          <div style="font-size:13px;line-height:1.55">Free shipping on orders over €50. 30-day hassle-free returns.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><div class="t-tag">Caption / Mono</div><div class="t-spec">DM Mono · 11px<br>Weight 400 · Track 0.06em</div></div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--neutral-30)">ARTICLE-2024 · SKU #BHR-001 · MADE IN DE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 Spacing -->
+    <div class="sg-section">
+      <div class="sg-label">03 · Spacing System (8px Grid)</div>
+      <div class="spacing-guide">
+        <div class="spacing-row"><div class="spacing-lbl">sp-1 · 4px</div><div class="spacing-bar" style="width:4px"></div></div>
+        <div class="spacing-row"><div class="spacing-lbl">sp-2 · 8px</div><div class="spacing-bar" style="width:8px"></div></div>
+        <div class="spacing-row"><div class="spacing-lbl">sp-3 · 12px</div><div class="spacing-bar" style="width:12px"></div></div>
+        <div class="spacing-row"><div class="spacing-lbl">sp-4 · 16px</div><div class="spacing-bar" style="width:16px"></div></div>
+        <div class="spacing-row"><div class="spacing-lbl">sp-6 · 24px</div><div class="spacing-bar" style="width:24px"></div></div>
+        <div class="spacing-row"><div class="spacing-lbl">sp-8 · 32px</div><div class="spacing-bar" style="width:32px"></div></div>
+        <div class="spacing-row"><div class="spacing-lbl">sp-10 · 40px</div><div class="spacing-bar" style="width:40px"></div></div>
+        <div class="spacing-row"><div class="spacing-lbl">sp-12 · 48px</div><div class="spacing-bar" style="width:48px"></div></div>
+        <div class="spacing-row"><div class="spacing-lbl">sp-16 · 64px</div><div class="spacing-bar" style="width:64px"></div></div>
+        <div class="spacing-row"><div class="spacing-lbl">sp-20 · 80px</div><div class="spacing-bar" style="width:80px"></div></div>
+        <div class="spacing-row"><div class="spacing-lbl">sp-24 · 96px</div><div class="spacing-bar" style="width:96px"></div></div>
+      </div>
+    </div>
+
+    <!-- 04 Buttons -->
+    <div class="sg-section">
+      <div class="sg-label">04 · Button System</div>
+      <div class="btn-showcase">
+        <div>
+          <div class="btn-row-label">Variants</div>
+          <div class="btn-row">
+            <button class="btn btn-primary">Primary</button>
+            <button class="btn btn-red">Accent Red</button>
+            <button class="btn btn-secondary">Secondary</button>
+            <button class="btn btn-ghost">Ghost</button>
+            <button class="btn" disabled style="background:var(--neutral-30);color:#fff;padding:14px 28px;font-size:14px;cursor:not-allowed">Disabled</button>
+          </div>
+        </div>
+        <div>
+          <div class="btn-row-label">Sizes</div>
+          <div class="btn-row" style="align-items:center">
+            <button class="btn btn-primary btn-sm">Small · 12px · 8/16px</button>
+            <button class="btn btn-primary">Default · 14px · 14/28px</button>
+            <button class="btn btn-primary btn-lg">Large · 16px · 18/40px</button>
+          </div>
+        </div>
+        <div>
+          <div class="btn-row-label">States</div>
+          <div class="btn-row">
+            <div style="text-align:center"><button class="btn btn-primary" style="background:var(--neutral-100)">Default</button><div style="font-family:var(--font-mono);font-size:9px;color:var(--neutral-30);margin-top:8px">bg: #0E0D0C</div></div>
+            <div style="text-align:center"><button class="btn btn-primary" style="background:var(--red-core);transform:translateY(-1px);box-shadow:var(--shadow-md)">Hover</button><div style="font-family:var(--font-mono);font-size:9px;color:var(--neutral-30);margin-top:8px">bg: #C8102E · −1px</div></div>
+            <div style="text-align:center"><button class="btn btn-primary" style="background:var(--red-deep);box-shadow:none">Active</button><div style="font-family:var(--font-mono);font-size:9px;color:var(--neutral-30);margin-top:8px">bg: #A00C24 · 0px</div></div>
+            <div style="text-align:center"><button class="btn btn-primary" style="background:var(--neutral-30);cursor:not-allowed" disabled>Disabled</button><div style="font-family:var(--font-mono);font-size:9px;color:var(--neutral-30);margin-top:8px">bg: #B3ADA5 · opacity .5</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 Inputs -->
+    <div class="sg-section">
+      <div class="sg-label">05 · Form Inputs & Validation</div>
+      <div class="input-grid">
+        <div class="inp-grp">
+          <label class="inp-label">Default State</label>
+          <input class="inp" placeholder="Enter value…" />
+          <span class="inp-hint">Helper text · DM Sans 11px · color: #B3ADA5</span>
+        </div>
+        <div class="inp-grp">
+          <label class="inp-label">Focus State</label>
+          <input class="inp" style="border-color:var(--neutral-100)" placeholder="Focused — border: #0E0D0C" />
+        </div>
+        <div class="inp-grp">
+          <label class="inp-label">Error State</label>
+          <input class="inp err" value="invalid@" readonly />
+          <span class="inp-err">⚠ Please enter a valid email address</span>
+        </div>
+        <div class="inp-grp">
+          <label class="inp-label">Success State</label>
+          <input class="inp ok" value="maria@example.com" readonly />
+          <span class="inp-ok">✓ Email address is valid</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 Cards -->
+    <div class="sg-section">
+      <div class="sg-label">06 · Card Components</div>
+      <div class="card-grid">
+        <div class="card"><div class="card-img">💅</div><div class="card-body"><div class="card-cat">BAEHR</div><div class="card-name">Professional Nail Drill System</div><div class="card-price">€289</div></div></div>
+        <div class="card"><div class="card-img">💡</div><div class="card-body"><div class="card-cat">BAEHR</div><div class="card-name">LED Curing Lamp 48W Ultra</div><div class="card-price">€159</div></div></div>
+        <div class="card"><div class="card-img">🧴</div><div class="card-body"><div class="card-cat">BAEHR</div><div class="card-name">Hygienic Tool Disinfectant</div><div class="card-price">€34</div></div></div>
+        <div class="card"><div class="card-img">🎨</div><div class="card-body"><div class="card-cat">BAEHR</div><div class="card-name">Premium Gel Polish Set</div><div class="card-price">€89</div></div></div>
+      </div>
+    </div>
+
+    <!-- 07 Shadows & Radius -->
+    <div class="sg-section">
+      <div class="sg-label">07 · Shadows & Border Radius</div>
+      <div class="shadows-row" style="margin-bottom:40px">
+        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:0 1px 3px rgba(14,13,12,.08)"></div><div class="shadow-lbl">shadow-xs<br>0 1px 3px .08</div></div>
+        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:0 2px 8px rgba(14,13,12,.10)"></div><div class="shadow-lbl">shadow-sm<br>0 2px 8px .10</div></div>
+        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:0 6px 24px rgba(14,13,12,.12)"></div><div class="shadow-lbl">shadow-md<br>0 6px 24px .12</div></div>
+        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:0 16px 48px rgba(14,13,12,.14)"></div><div class="shadow-lbl">shadow-lg<br>0 16px 48px .14</div></div>
+      </div>
+      <div class="radius-row">
+        <div class="radius-demo"><div class="radius-box" style="width:80px;height:48px;border-radius:2px"></div><div class="radius-lbl">r-sm · 2px<br>Badges, Tags</div></div>
+        <div class="radius-demo"><div class="radius-box" style="width:80px;height:48px;border-radius:6px"></div><div class="radius-lbl">r-md · 6px<br>Buttons, Inputs</div></div>
+        <div class="radius-demo"><div class="radius-box" style="width:80px;height:48px;border-radius:12px"></div><div class="radius-lbl">r-lg · 12px<br>Cards</div></div>
+        <div class="radius-demo"><div class="radius-box" style="width:80px;height:48px;border-radius:20px"></div><div class="radius-lbl">r-xl · 20px<br>Panels, Modals</div></div>
+        <div class="radius-demo"><div class="radius-box" style="width:80px;height:48px;border-radius:999px"></div><div class="radius-lbl">r-full · 999px<br>Pills, Badges</div></div>
+      </div>
+    </div>
+
+    <!-- 08 Breakpoints -->
+    <div class="sg-section">
+      <div class="sg-label">08 · Responsive Breakpoints</div>
+      <div class="bp-grid">
+        <div class="bp-row"><div class="bp-info"><strong>Mobile S</strong>min-width: 320px · 1 column</div><div class="bp-track"><div class="bp-fill" style="width:15%"></div></div></div>
+        <div class="bp-row"><div class="bp-info"><strong>Mobile L</strong>min-width: 375px · 1 column</div><div class="bp-track"><div class="bp-fill" style="width:20%"></div></div></div>
+        <div class="bp-row"><div class="bp-info"><strong>Tablet</strong>min-width: 768px · 2 columns</div><div class="bp-track"><div class="bp-fill" style="width:50%"></div></div></div>
+        <div class="bp-row"><div class="bp-info"><strong>Laptop</strong>min-width: 1024px · 3–4 columns</div><div class="bp-track"><div class="bp-fill" style="width:70%"></div></div></div>
+        <div class="bp-row"><div class="bp-info"><strong>Desktop</strong>min-width: 1280px · 4–5 columns</div><div class="bp-track"><div class="bp-fill" style="width:85%"></div></div></div>
+        <div class="bp-row"><div class="bp-info"><strong>Wide</strong>min-width: 1440px · max-width capped</div><div class="bp-track"><div class="bp-fill" style="width:100%"></div></div></div>
+      </div>
+    </div>
+
+    <!-- 09 States -->
+    <div class="sg-section">
+      <div class="sg-label">09 · Component State Documentation</div>
+      <div class="states-grid">
+        <div class="state-card"><div class="state-dot" style="background:var(--neutral-10)"></div><div class="state-name">Default</div><div class="state-desc">Normal resting state. No interaction. Base styles applied.</div></div>
+        <div class="state-card"><div class="state-dot" style="background:var(--neutral-30)"></div><div class="state-name">Hover</div><div class="state-desc">Mouse over. 150ms transition. Slight elevation or color shift.</div></div>
+        <div class="state-card"><div class="state-dot" style="background:var(--neutral-80)"></div><div class="state-name">Focus</div><div class="state-desc">Keyboard navigation. 2px outline with 2px offset. Accessible.</div></div>
+        <div class="state-card"><div class="state-dot" style="background:var(--neutral-100)"></div><div class="state-name">Active / Pressed</div><div class="state-desc">On click. translateY(0). Shadow removed. Instant feedback.</div></div>
+        <div class="state-card"><div class="state-dot" style="background:var(--neutral-30)"></div><div class="state-name">Disabled</div><div class="state-desc">Not interactive. Opacity 0.5. cursor: not-allowed. No events.</div></div>
+        <div class="state-card"><div class="state-dot" style="background:var(--red-core)"></div><div class="state-name">Loading</div><div class="state-desc">Async operation. Spinner or skeleton. Prevent double submission.</div></div>
+      </div>
+    </div>
+
+    <!-- 10 Iconography -->
+    <div class="sg-section">
+      <div class="sg-label">10 · Iconography Guidelines</div>
+      <div style="background:var(--neutral-05);border-radius:var(--r-lg);padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:32px">
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:12px">Icon Style Rules</div>
+          <ul style="font-size:13px;color:var(--neutral-60);line-height:2;padding-left:16px">
+            <li>Use outline/line style icons consistently</li>
+            <li>Standard sizes: 16px / 20px / 24px</li>
+            <li>Stroke weight: 1.5px at 24px scale</li>
+            <li>Recommended library: Lucide Icons</li>
+            <li>Color: inherit from parent text color</li>
+            <li>Never mix filled and outline styles</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:12px">Sizing Tokens</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;gap:16px">
+              <div style="width:16px;height:16px;border:1.5px solid var(--neutral-60);border-radius:3px"></div>
+              <span style="font-family:var(--font-mono);font-size:11px;color:var(--neutral-60)">icon-sm · 16×16px</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px">
+              <div style="width:20px;height:20px;border:1.5px solid var(--neutral-60);border-radius:3px"></div>
+              <span style="font-family:var(--font-mono);font-size:11px;color:var(--neutral-60)">icon-md · 20×20px</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px">
+              <div style="width:24px;height:24px;border:1.5px solid var(--neutral-60);border-radius:3px"></div>
+              <span style="font-family:var(--font-mono);font-size:11px;color:var(--neutral-60)">icon-lg · 24×24px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end sg-wrap -->
+</div><!-- end page-styleguide -->
+
+<script>
+  const prices = [289, 159];
+  const qtys = [1, 2];
+
+  function showPage(id, tabEl) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    if (tabEl) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tabEl.classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function changeQty(id, delta) {
+    const idx = id === 'q1' ? 0 : 1;
+    qtys[idx] = Math.max(1, qtys[idx] + delta);
+    document.getElementById(id).textContent = qtys[idx];
+    const itemPrice = prices[idx] * qtys[idx];
+    document.getElementById(idx === 0 ? 'p1' : 'p2').textContent = '€' + itemPrice.toLocaleString();
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const sub = qtys[0] * prices[0] + qtys[1] * prices[1];
+    const vat = Math.round(sub * 0.19);
+    const total = sub + vat;
+    document.getElementById('subtotal').textContent = '€' + sub.toLocaleString();
+    document.getElementById('vat').textContent = '€' + vat.toLocaleString();
+    document.getElementById('total').textContent = '€' + total.toLocaleString();
+  }
+
+  // Sidebar nav items toggle active
+  document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar-nav-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
